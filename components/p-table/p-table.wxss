@@ -1,0 +1,81 @@
+/* components/p-table/p-table.wxss */
+.container {
+  z-index: 1
+}
+.table {
+  position: relative;
+  overflow: hidden;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  /* justify-content: center; */
+}
+.th{
+  width: 25%;
+  background: #3366FF;
+  color: #fff;
+  height: 3em;
+  line-height: 3em;
+  text-align: center;
+  flex-shrink: 0;
+}
+.td{
+  background: #fff;
+  width: 25%;
+  height: 3em;
+  align-items: center;
+  line-height: 3em;
+  text-align: center;
+  flex-shrink: 0;
+}
+.bg {
+  background: #E6F3F9;
+}
+
+
+.fixed {
+  /* overflow-x: scroll;  */
+  z-index: 1; 
+  position: fixed;
+  top: 0; 
+  left: 0;
+  right: 0;
+}
+
+.fixedl {
+  /* z-index: 200; */
+  margin-left: 16rpx;
+  width: 15rpx;
+
+  position: fixed;
+  left: 0;
+}
+
+.operation {
+  margin-top: 16rpx;
+}
+.oper {
+  width: 112px;
+}
+
+.input {
+  width: 95%;
+  height: 65rpx;
+  border: 6rpx solid  #E6F3F9;
+  border-radius: 20rpx;
+  padding-left: 12rpx;
+  margin-top: 6rpx;
+}
+.text {
+  color:rgb(107, 139, 139);
+  font-size: 36rpx;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  margin-top: 16rpx;
+  text-align: center;
+  padding: 12rpx;
+}

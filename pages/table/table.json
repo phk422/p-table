@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "p-table": "../../components/p-table/p-table"
+  }
+}

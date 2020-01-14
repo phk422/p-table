@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "p-modal": "../p-modal/p-modal"
+  }
+}

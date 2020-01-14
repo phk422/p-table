@@ -1,0 +1,60 @@
+<!--components/p-table/p-table.wxml-->
+<scroll-view class="container" style="height: {{height}}" scroll-y >
+  <scroll-view scroll-x  class="table" bindscroll="handelScrollLeft">
+    <view class="tr {{fixed ? 'fixed' : ''}}" style='left: {{scrollLeft}}px'  >
+      <!-- 复选框 -->
+      <view class="th " style="width:15px;padding-left:18rpx" wx:if="{{isShowSelection}}">
+        <checkbox class="checkbox" checked="{{isChecked}}" bindtap="handleSelectionChange"></checkbox>
+      </view> 
+      <!-- 序号列 -->
+      <view class="th " wx:if="{{isShowId}}">序号</view>
+      <block wx:for="{{colName}}" wx:key="index">
+        <view class="th">{{item.label}}</view>
+      </block>
+      <!-- 操作列 -->
+      <view wx:if="{{isOperation}}" class="th oper">操作</view>
+      <!-- 填充列 -->
+      <!-- <view wx:if="{{fixed}}" class="th"></view> -->
+    </view>
+
+    <!-- 填充一行空行 -->
+    <view wx:if="{{fixed}}" style="height:3em"></view>
+
+    <!-- 数据 -->
+    <block wx:for="{{tableData}}" wx:for-item="table" wx:for-index="i" wx:key="index">
+      <view class="tr ">
+        <view class="td {{i%2 === 0? 'bg': ''}}" wx:if="{{isShowSelection}}" style="width:15px;padding-left:18rpx">
+          <checkbox class="checkbox" checked="{{isSelected}}"></checkbox>
+        </view>
+        <view wx:if="{{isShowId}}"  class="td  {{i%2 === 0? 'bg': ''}}">
+          {{i + 1}}
+        </view>
+        <block wx:for="{{colName}}" wx:for-item="col" wx:key="index">
+          <view class="td {{i%2 === 0? 'bg': ''}}">{{table[col.prop]}}</view>
+        </block>
+        <view class="td  {{i%2 === 0? 'bg': ''}}" style="width:auto"  wx:if="{{isOperation}}">
+          <button class="operation" size="mini" bindtap="handelUpdate" data-index="{{i}}">修改</button>
+          <button class="operation" size="mini" type="warn" bindtap="handelDelete" data-index="{{i}}">删除</button>
+        </view>
+      </view> 
+    </block>
+  </scroll-view>
+</scroll-view>
+
+<!-- modal弹窗  注意：一定要放在最外层标签-->
+<p-modal show="{{showModal}}"  single='{{single}}' bind:confirm="modalConfirm">
+            <view class='modal-content'>
+              <scroll-view scroll-y class='main-content'>
+              <form bindsubmit="update" >
+                <block wx:for="{{colName}}" wx:key="this">
+                    <view class="text">{{item.label}}</view>
+                    <view><input class="input" name="{{item.prop}}" value="{{currentTableData[item.prop]}}"/></view>
+                </block>
+                <view class="btn">
+                  <button size="mini" type="primary" form-type="submit" >提交修改 </button>
+                  <button size="mini" type="primary" bindtap="back">返回</button>
+                </view>
+              </form>
+              </scroll-view>
+            </view>
+          </p-modal>
