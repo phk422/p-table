@@ -44,5 +44,6 @@ Component({
       this.setData({ show: false })
       this.triggerEvent('confirm')
     }
-  }
+  },
+  
 })

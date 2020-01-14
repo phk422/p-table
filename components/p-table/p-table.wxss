@@ -1,9 +1,8 @@
 /* components/p-table/p-table.wxss */
 .container {
-  z-index: 1
+  position: relative;
 }
 .table {
-  position: relative;
   overflow: hidden;
 }
 .tr {
@@ -38,7 +37,6 @@
   /* overflow-x: scroll;  */
   z-index: 1; 
   position: fixed;
-  top: 0; 
   left: 0;
   right: 0;
 }
@@ -78,4 +76,7 @@
   margin-top: 16rpx;
   text-align: center;
   padding: 12rpx;
+}
+.addBtn {
+  margin-top: 40rpx;
 }

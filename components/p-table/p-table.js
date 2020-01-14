@@ -66,7 +66,9 @@ Component({
    * 组件的初始数据
    */
   data: {
+    value: '',
     showModal: false,
+    showAddModal: false,
     isSelected: false,  // 多选状态
     scrollLeft: 0,
     sTop: 0,
@@ -150,19 +152,35 @@ Component({
     },
     back () {
       this.setData({
-        showModal: false
+        showModal: false,
+        showAddModal: false
       })
     },
     // 点击取消
     modalCancel() {
       
     },
-    aaa() {
-      return 'aaa'
-    },
     // 点击确定
     modalConfirm(e) {
       console.log("ooo")
+    },
+    addBtn() {
+      this.setData({
+        showAddModal: true,
+        value: ''   // 刷新修改modal框的value，才可以使页面刷新
+      })
+    },
+    addTableData(e) {
+      console.log(e.detail.value)
+      wx.showToast({
+        title: '添加成功',
+      })
+      var that = this
+      this.setData({
+        showAddModal: false,
+        tableData: that.properties.tableData.concat(e.detail.value),
+      })
+      e.detail.value={}
     }
   }
 })

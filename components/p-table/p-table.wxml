@@ -40,15 +40,18 @@
     </block>
   </scroll-view>
 </scroll-view>
+<button class="addBtn" type="primary" bindtap="addBtn">新增</button>
 
-<!-- modal弹窗  注意：一定要放在最外层标签-->
+
+
+<!-- 修改modal弹窗  注意：一定要放在最外层标签-->
 <p-modal show="{{showModal}}"  single='{{single}}' bind:confirm="modalConfirm">
             <view class='modal-content'>
               <scroll-view scroll-y class='main-content'>
               <form bindsubmit="update" >
-                <block wx:for="{{colName}}" wx:key="this">
+                <block wx:for="{{colName}}" wx:key="index">
                     <view class="text">{{item.label}}</view>
-                    <view><input class="input" name="{{item.prop}}" value="{{currentTableData[item.prop]}}"/></view>
+                    <view><input class="input" name="{{item.prop}}" /></view>
                 </block>
                 <view class="btn">
                   <button size="mini" type="primary" form-type="submit" >提交修改 </button>
@@ -58,3 +61,22 @@
               </scroll-view>
             </view>
           </p-modal>
+
+
+<!-- 新增modal弹窗  注意：一定要放在最外层标签-->
+<p-modal show="{{showAddModal}}"  single='{{single}}' >
+            <view class='modal-content'>
+              <scroll-view scroll-y class='main-content'>
+              <form bindsubmit="addTableData" >
+                <block wx:for="{{colName}}" wx:key="this">
+                    <view class="text">{{item.label}}</view>
+                    <view><input  class="input" placeholder="请输入{{item.label}}" name="{{item.prop}}" value="{{value}}"/></view>
+                </block>
+                <view class="btn">
+                  <button size="mini" type="primary" form-type="submit" >确认添加 </button>
+                  <button size="mini" type="primary" bindtap="back">返回</button>
+                </view>
+              </form>
+              </scroll-view>
+            </view>
+          </p-modal> 

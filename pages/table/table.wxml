@@ -9,11 +9,11 @@
     colName: 表格字段json格式
     tableData: 表格数据json格式
  -->
-<p-table  
-          height="450px"
-          checkbox="checkbox"  
-          isShowId 
-          isShowSelection
-          fixed
-          colName="{{colName}}" 
-          tableData="{{tableData}}" />
+  <p-table
+            height="450px"
+            checkbox="checkbox"  
+            isShowId 
+            isShowSelection
+            fixed
+            colName="{{colName}}" 
+            tableData="{{tableData}}" />
