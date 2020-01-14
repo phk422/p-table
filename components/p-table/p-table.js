@@ -57,6 +57,11 @@ Component({
           birthday: '2000-08-22'
         },
       ]
+    },
+    // 表格标题
+    title: {
+      type: String,
+      value: ''
     }
   },
   // 外部样式
@@ -167,7 +172,7 @@ Component({
     addBtn() {
       this.setData({
         showAddModal: true,
-        value: ''   // 刷新修改modal框的value，才可以使页面刷新
+        value: ''   // 每次点击新增按钮清空新增modal框的value，才可以使页面刷新
       })
     },
     addTableData(e) {

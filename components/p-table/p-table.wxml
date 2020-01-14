@@ -1,4 +1,5 @@
 <!--components/p-table/p-table.wxml-->
+<text>{{title}}</text>
 <scroll-view class="container" style="height: {{height}}" scroll-y >
   <scroll-view scroll-x  class="table" bindscroll="handelScrollLeft">
     <view class="tr {{fixed ? 'fixed' : ''}}" style='left: {{scrollLeft}}px'  >

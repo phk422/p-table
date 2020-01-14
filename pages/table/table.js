@@ -5,7 +5,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isShowId: true, //是否显示序号列
     colName: [
       { prop: 'username', label: '用户名' },
       { prop: 'gender', label: '性别' },
