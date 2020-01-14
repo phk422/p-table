@@ -1,8 +1,6 @@
 {
   "pages": [
-    "pages/table/table",
-    "pages/left/left",
-    "pages/logs/logs"
+    "pages/table/table"
   ],
   "window": {
     "backgroundTextStyle": "light",
