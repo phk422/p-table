@@ -54,12 +54,12 @@ Page({
         age: 24,
         star: "金牛座"
       }, {
-        username: '李大方',
-        gender: '女',
-        birthday: '1996-03-18',
-        cla: '2班',
-        age: 24,
-        star: "金牛座"
+        username: '杨过',
+        gender: '男',
+        birthday: '1879-12-09',
+        cla: '3班',
+        age: 40,
+        star: "射手座"
       }, {
         username: '李大方',
         gender: '女',
@@ -82,23 +82,24 @@ Page({
         age: 24,
         star: "金牛座"
       }, {
-        username: '李大方',
-        gender: '女',
+        username: '张九天',
+        gender: '男',
+        birthday: '2001-03-23',
+        cla: '2班',
+        age: 24,
+        star: "天秤座"
+      }, {
+        username: '彭四方',
+        gender: '男',
         birthday: '1996-03-18',
         cla: '2班',
         age: 24,
         star: "金牛座"
-      }, {
-        username: '李大方',
-        gender: '女',
-        birthday: '1996-03-18',
-        cla: '2班',
-        age: 24,
-        star: "金牛座"
-      }, {
-        username: '李大方',
-        gender: '女',
-        birthday: '1996-03-18',
+      }, 
+      {
+        username: '刘四海',
+        gender: '男',
+        birthday: '1996-03-23',
         cla: '2班',
         age: 24,
         star: "金牛座"
@@ -112,18 +113,18 @@ Page({
         star: "金牛座"
       },
       {
-        username: '李大方',
+        username: '刘大海',
         gender: '女',
         birthday: '1996-03-18',
         cla: '2班',
         age: 24,
-        star: "金牛座"
+        star: "水瓶座"
       },
       {
-        username: '李大方',
+        username: '赵七八',
         gender: '女',
-        birthday: '1996-03-18',
-        cla: '2班',
+        birthday: '1996-02-13',
+        cla: '3班',
         age: 24,
         star: "金牛座"
       },

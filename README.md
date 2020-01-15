@@ -3,11 +3,13 @@
 
 
 # 使用说明：
+    title: (String类型) 表格标题
     height: （String类型，默认高度400px）表格的高度
     isShowId: （boolean类型，默认false）是否显示序号列 
     isShowSelection: （boolean类型，默认false）是否显示多选列
     isOperation: (boolean类型，默认true) 是否显示操作列
     fixed: （boolean类型，默认false）是否固定首行
+    checkbox: 多选样式
     colName: 表格字段json格式：
     colName: [
       { prop: 'username', label: '用户名' },

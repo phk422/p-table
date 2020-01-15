@@ -74,6 +74,7 @@ Component({
     value: '',
     showModal: false,
     showAddModal: false,
+    deleteTipsModal: false,
     isSelected: false,  // 多选状态
     scrollLeft: 0,
     sTop: 0,
@@ -106,30 +107,55 @@ Component({
     handelDelete(e) {
       // console.log(e.currentTarget.dataset['index'])
       const index = e.currentTarget.dataset['index']
-      wx.showModal({
-        title: '提示',
-        content: '确认删除吗？',
-        confirmColor: 'red', 
-        success: (res) => {
-          if(res.confirm) {
-            // console.log('删除成功')
-            wx.showToast({
-              title: '删除成功',
-              duration: 1000
-            })
-            this.properties.tableData.splice(index, 1)
-            var that = this
-            this.setData({
-              tableData: that.properties.tableData
-            })
-          }else {
-            wx.showToast({
-              title: '取消删除',
-              duration: 1000
-            })
-            // console.log("取消删除")
-          }
-        }
+      var that = this
+      this.setData({
+        deleteTipsModal: true,
+        currentIndex: index,
+        currentTableData: this.properties.tableData[index]
+      })
+      // wx.showModal({
+      //   title: '提示',
+      //   content: '确认删除吗？',
+      //   confirmColor: 'red', 
+      //   success: (res) => {
+      //     if(res.confirm) {
+      //       // console.log('删除成功')
+      //       wx.showToast({
+      //         title: '删除成功',
+      //         duration: 1000
+      //       })
+      //       this.properties.tableData.splice(index, 1)
+      //       var that = this
+      //       this.setData({
+      //         tableData: that.properties.tableData
+      //       })
+      //     }else {
+      //       wx.showToast({
+      //         title: '取消删除',
+      //         duration: 1000
+      //       })
+      //       // console.log("取消删除")
+      //     }
+      //   }
+      // })
+    },
+    // 确认删除
+    confirmDelete() {
+      this.properties.tableData.splice(this.data.currentIndex, 1)
+      var that = this
+      this.setData({
+        tableData: that.properties.tableData
+      })
+      wx.showToast({
+        title: '删除成功',
+        duration: 600
+      })
+    },
+    // 取消删除
+    cancelDelete() {
+      wx.showToast({
+        title: '取消删除',
+        duration: 600
       })
     },
     handelUpdate(e) {

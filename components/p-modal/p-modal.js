@@ -4,13 +4,18 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    //是否显示modal弹窗
+    // 是否显示modal弹窗
     show: {
       type: Boolean,
       value: false
     },
-    //控制底部是一个按钮还是两个按钮，默认两个
+    // 控制底部是一个按钮还是两个按钮，默认两个
     single: {
+      type: Boolean,
+      value: false
+    },
+    // 是否显示底部的按钮
+    showFooter: {
       type: Boolean,
       value: false
     }

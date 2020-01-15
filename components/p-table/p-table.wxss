@@ -7,16 +7,16 @@
   color: gray;
   font-weight: 750;
 }
-.table {
+/* .table {
   overflow: hidden;
-}
+} */
 .tr {
   display: flex;
   width: 100%;
   /* justify-content: center; */
 }
 .th{
-  width: 25%;
+  width: 26%;
   background: #3366FF;
   color: #fff;
   height: 3em;
@@ -26,7 +26,7 @@
 }
 .td{
   background: #fff;
-  width: 25%;
+  width: 26%;
   height: 3em;
   align-items: center;
   line-height: 3em;
@@ -84,4 +84,12 @@
 }
 .addBtn {
   margin-top: 40rpx;
+}
+
+.del-content {
+  text-align: center;
+}
+.tip {
+  color: red;
+  font-weight: bold;
 }
