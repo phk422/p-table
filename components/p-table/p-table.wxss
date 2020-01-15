@@ -2,6 +2,11 @@
 .container {
   position: relative;
 }
+.title {
+  font-size: 26rpx;
+  color: gray;
+  font-weight: 750;
+}
 .table {
   overflow: hidden;
 }
