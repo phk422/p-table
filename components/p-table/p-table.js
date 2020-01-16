@@ -91,6 +91,8 @@ Component({
      * 多选事件 
      */
     handleSelectionChange() {
+      // 点击时先清空当前选中的
+      this.data.currentCheckedIndexs = []
       var that = this
       this.setData({
         isSelected: !that.data.isSelected
@@ -103,9 +105,9 @@ Component({
       }else {
         this.data.currentCheckedIndexs = []
       }
-      
+      // 向外传递一个当前选中事件
       this.triggerEvent("currentCheckedIndexs",this.data.currentCheckedIndexs)
-      console.log(this.data.currentCheckedIndexs)
+      // console.log(this.data.currentCheckedIndexs)
     },
 
     // 实现表头横向的滚动
@@ -252,8 +254,9 @@ Component({
           }
         }
       }
-     
-      console.log(this.data.currentCheckedIndexs)
+      // 向外传递一个当前选中事件
+      this.triggerEvent("currentCheckedIndexs", this.data.currentCheckedIndexs)
+      // console.log(this.data.currentCheckedIndexs)
     }
   }
 })

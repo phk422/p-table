@@ -10,6 +10,7 @@
     isOperation: (boolean类型，默认true) 是否显示操作列
     fixed: （boolean类型，默认false）是否固定首行
     checkbox: 多选样式
+    currentCheckedIndexs: 当前选中事件
     colName: 表格字段json格式：
     colName: [
       { prop: 'username', label: '用户名' },

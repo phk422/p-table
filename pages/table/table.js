@@ -130,6 +130,8 @@ Page({
       },
     ]
   },
+
+  // table组件传递来的
   currentCheckedIndexs(e) {
     console.log(e.detail)
   },
