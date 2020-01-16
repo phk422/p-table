@@ -5,8 +5,8 @@
       <slot></slot>
     </scroll-view>
     <view class='modal-footer' wx:if="{{showFooter}}">
-      <view class='confirm-btn' bindtap='confirm'>确认</view>
       <view wx:if='{{!single}}' class='cancel-btn' bindtap='cancel'>取消</view>
+      <view class='confirm-btn' bindtap='confirm'>确认</view>
     </view>
   </view>
 </view>

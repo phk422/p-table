@@ -33,10 +33,10 @@
   text-align: center;
   flex-shrink: 0;
 }
+
 .bg {
   background: #E6F3F9;
 }
-
 
 .fixed {
   /* overflow-x: scroll;  */
@@ -83,13 +83,14 @@
   padding: 12rpx;
 }
 .addBtn {
-  margin-top: 40rpx;
+  margin-top: 15rpx;
 }
 
 .del-content {
   text-align: center;
 }
+
 .tip {
-  color: red;
+  color: #ff0000;
   font-weight: bold;
 }

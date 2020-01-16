@@ -4,6 +4,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    // 表格的高度
     height: {
       type: String,
       value: '400px'
@@ -64,21 +65,20 @@ Component({
       value: ''
     }
   },
-  // 外部样式
+  // 外部传入的样式
   externalClasses: ['checkbox'],
 
   /**
    * 组件的初始数据
    */
   data: {
-    value: '',
-    showModal: false,
-    showAddModal: false,
-    deleteTipsModal: false,
+    value: '',  // 再次添加清空表单
+    showModal: false,  // 显示修改Modal
+    showAddModal: false, // 显示添加Modal
+    deleteTipsModal: false, // 删除提示Modal
     isSelected: false,  // 多选状态
-    scrollLeft: 0,
-    sTop: 0,
-    currentIndex: Number  // 修改的当前下标
+    scrollLeft: 0,  // 右边的坐标，控制首行
+    currentIndex: Number  // 存放修改的当前下标
   },
 
   /**
@@ -103,7 +103,7 @@ Component({
         })
       }
     },
-
+    // 删除事件
     handelDelete(e) {
       // console.log(e.currentTarget.dataset['index'])
       const index = e.currentTarget.dataset['index']
@@ -148,16 +148,19 @@ Component({
       })
       wx.showToast({
         title: '删除成功',
-        duration: 600
+        mask: true,  // 显示遮罩，防止穿透点击
+        duration: 3000
       })
     },
     // 取消删除
     cancelDelete() {
       wx.showToast({
         title: '取消删除',
-        duration: 600
+        mask: true, // 显示遮罩，防止穿透点击
+        duration: 2000
       })
     },
+    // 修改事件
     handelUpdate(e) {
       const index = e.currentTarget.dataset.index
       // console.log(index)
@@ -168,12 +171,14 @@ Component({
         currentTableData: this.properties.tableData[index]
       })
     },
+    // 确认修改事件
     update(e) {
       const tableItem = e.detail.value
       this.properties.tableData.splice(this.data.currentIndex,1,tableItem)
       var that = this
       wx.showToast({
         title: '修改成功',
+        mask: true  // 显示遮罩，防止穿透点击
       })
       this.setData({
         showModal: false,
@@ -181,6 +186,7 @@ Component({
       })
       // console.log(this.properties.tableData)
     },
+    // 关闭Modal
     back () {
       this.setData({
         showModal: false,
@@ -195,23 +201,25 @@ Component({
     modalConfirm(e) {
       console.log("ooo")
     },
+    // 新增按钮点击事件
     addBtn() {
       this.setData({
         showAddModal: true,
         value: ''   // 每次点击新增按钮清空新增modal框的value，才可以使页面刷新
       })
     },
+    // 新增表格数据
     addTableData(e) {
       console.log(e.detail.value)
       wx.showToast({
         title: '添加成功',
+        mask: true
       })
       var that = this
       this.setData({
         showAddModal: false,
         tableData: that.properties.tableData.concat(e.detail.value),
       })
-      e.detail.value={}
     }
   }
 })

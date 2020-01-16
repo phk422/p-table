@@ -36,8 +36,9 @@
         star: "射手座"
       }]
  -->
-  <p-table
-            height="450px"
+
+
+  <p-table  height="200px"
             title="人员基本信息表"
             isShowId 
             isShowSelection
