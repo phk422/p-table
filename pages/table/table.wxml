@@ -43,6 +43,7 @@
             isShowId 
             isShowSelection
             fixed
+            bind:currentCheckedIndexs="currentCheckedIndexs"
             colName="{{colName}}" 
             tableData="{{tableData}}"
             checkbox="checkbox"   />

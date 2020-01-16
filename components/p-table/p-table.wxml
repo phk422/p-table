@@ -25,10 +25,10 @@
     <block wx:for="{{tableData}}" wx:for-item="table" wx:for-index="i" wx:key="index">
       <view class="tr ">
         <view class="td {{i%2 === 0? 'bg': ''}}" wx:if="{{isShowSelection}}" style="width:15px;padding-left:18rpx">
-          <checkbox class="checkbox" checked="{{isSelected}}"></checkbox>
+          <checkbox class="checkbox" checked="{{isSelected}}" bindtap="handelChecked" data-index="{{i}}"></checkbox>
         </view>
         <view wx:if="{{isShowId}}"  class="td  {{i%2 === 0? 'bg': ''}}">
-          {{i + 1}}
+          {{i + 1}} 
         </view>
         <block wx:for="{{colName}}" wx:for-item="col" wx:key="index">
           <view class="td {{i%2 === 0? 'bg': ''}}">{{table[col.prop]}}</view>

@@ -78,7 +78,9 @@ Component({
     deleteTipsModal: false, // 删除提示Modal
     isSelected: false,  // 多选状态
     scrollLeft: 0,  // 右边的坐标，控制首行
-    currentIndex: Number  // 存放修改的当前下标
+    currentIndex: Number,  // 存放修改的当前下标
+    currentTableData: Array,  // 当前显示的单一表格数据
+    currentCheckedIndexs: []  // 当前选中的所有数据下标
   },
 
   /**
@@ -93,6 +95,17 @@ Component({
       this.setData({
         isSelected: !that.data.isSelected
       })
+      if(this.data.isSelected){
+        console.log(this.properties.tableData.length)
+        for(let i=0;i<this.properties.tableData.length;i++) {
+          this.data.currentCheckedIndexs.push(i)
+        }
+      }else {
+        this.data.currentCheckedIndexs = []
+      }
+      
+      this.triggerEvent("currentCheckedIndexs",this.data.currentCheckedIndexs)
+      console.log(this.data.currentCheckedIndexs)
     },
 
     // 实现表头横向的滚动
@@ -106,7 +119,7 @@ Component({
     // 删除事件
     handelDelete(e) {
       // console.log(e.currentTarget.dataset['index'])
-      const index = e.currentTarget.dataset['index']
+      const index = e.currentTarget.dataset.index
       var that = this
       this.setData({
         deleteTipsModal: true,
@@ -149,15 +162,15 @@ Component({
       wx.showToast({
         title: '删除成功',
         mask: true,  // 显示遮罩，防止穿透点击
-        duration: 3000
       })
     },
     // 取消删除
     cancelDelete() {
       wx.showToast({
         title: '取消删除',
+        icon: 'none',
         mask: true, // 显示遮罩，防止穿透点击
-        duration: 2000
+        duration: 1000
       })
     },
     // 修改事件
@@ -220,6 +233,27 @@ Component({
         showAddModal: false,
         tableData: that.properties.tableData.concat(e.detail.value),
       })
+    },
+
+    handelChecked(e) {
+      const index = e.currentTarget.dataset.index
+      // this.data.currentTableData.push("aaa")
+      var that = this
+      // 判断选中数组中是否含有该下标
+      if(!this.data.currentCheckedIndexs.includes(index)){
+        console.log("aaa")
+        this.setData({
+          currentCheckedIndexs: that.data.currentCheckedIndexs.concat(index)
+        })
+      }else {
+        for(let i = 0;i<that.data.currentCheckedIndexs.length;i++){
+          if(that.data.currentCheckedIndexs[i]==index){
+            that.data.currentCheckedIndexs.splice(i,1)
+          }
+        }
+      }
+     
+      console.log(this.data.currentCheckedIndexs)
     }
   }
 })
