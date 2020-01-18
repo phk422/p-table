@@ -19,11 +19,6 @@ Component({
       type: Boolean,
       value: false
     },
-    // 是否固定首行
-    fixed: {
-      type: Boolean,
-      value: false
-    },
     // 是否显示操作列
     isOperation: {
       type: Boolean,
@@ -76,11 +71,15 @@ Component({
     showModal: false,  // 显示修改Modal
     showAddModal: false, // 显示添加Modal
     deleteTipsModal: false, // 删除提示Modal
+    hiddenColModal: false, // 显示隐藏弹窗
     isSelected: false,  // 多选状态
+    isHiddenCol: {}, // 隐藏列
+    currentHiddenCol: {},
     scrollLeft: 0,  // 右边的坐标，控制首行
     currentIndex: Number,  // 存放修改的当前下标
     currentTableData: Array,  // 当前显示的单一表格数据
-    currentCheckedIndexs: []  // 当前选中的所有数据下标
+    currentCheckedIndexs: [], // 当前选中的所有数据下标
+    showColIndex: [0,1,2,3,4,5]
   },
 
   /**
@@ -91,32 +90,30 @@ Component({
      * 多选事件 
      */
     handleSelectionChange() {
-      // 点击时先清空当前选中的
+      // 点击全选时先清空当前选中的所有下标
       this.data.currentCheckedIndexs = []
-      var that = this
       this.setData({
-        isSelected: !that.data.isSelected
+        isSelected: !this.data.isSelected
       })
+      // 全选时
       if(this.data.isSelected){
         console.log(this.properties.tableData.length)
-        for(let i=0;i<this.properties.tableData.length;i++) {
+        for(let i = 0;i < this.properties.tableData.length;i++) {
           this.data.currentCheckedIndexs.push(i)
         }
-      }else {
+      }else {  // 取消全选时
         this.data.currentCheckedIndexs = []
       }
-      // 向外传递一个当前选中事件
+      // 向外传递一个当前选中事件以获取选中的数组
       this.triggerEvent("currentCheckedIndexs",this.data.currentCheckedIndexs)
       // console.log(this.data.currentCheckedIndexs)
     },
 
     // 实现表头横向的滚动
     handelScrollLeft(e) {
-      if(this.properties.fixed) {
-        this.setData({
-          scrollLeft: -e.detail.scrollLeft
-        })
-      }
+      this.setData({
+        scrollLeft: -e.detail.scrollLeft
+      })
     },
     // 删除事件
     handelDelete(e) {
@@ -157,9 +154,8 @@ Component({
     // 确认删除
     confirmDelete() {
       this.properties.tableData.splice(this.data.currentIndex, 1)
-      var that = this
       this.setData({
-        tableData: that.properties.tableData
+        tableData: this.properties.tableData
       })
       wx.showToast({
         title: '删除成功',
@@ -179,7 +175,6 @@ Component({
     handelUpdate(e) {
       const index = e.currentTarget.dataset.index
       // console.log(index)
-      var that = this
       this.setData({
         showModal: true,
         currentIndex: index,
@@ -190,14 +185,13 @@ Component({
     update(e) {
       const tableItem = e.detail.value
       this.properties.tableData.splice(this.data.currentIndex,1,tableItem)
-      var that = this
       wx.showToast({
         title: '修改成功',
         mask: true  // 显示遮罩，防止穿透点击
       })
       this.setData({
         showModal: false,
-        tableData: that.properties.tableData
+        tableData: this.properties.tableData
       })
       // console.log(this.properties.tableData)
     },
@@ -214,7 +208,7 @@ Component({
     },
     // 点击确定
     modalConfirm(e) {
-      console.log("ooo")
+      console.log("点击了确认")
     },
     // 新增按钮点击事件
     addBtn() {
@@ -230,33 +224,77 @@ Component({
         title: '添加成功',
         mask: true
       })
-      var that = this
       this.setData({
+        tableData: this.properties.tableData.concat(e.detail.value),
         showAddModal: false,
-        tableData: that.properties.tableData.concat(e.detail.value),
       })
     },
 
+    // 选择某一行的事件
     handelChecked(e) {
-      const index = e.currentTarget.dataset.index
+      const index = e.currentTarget.dataset.index  // 获取当前选中的下标值
       // this.data.currentTableData.push("aaa")
-      var that = this
-      // 判断选中数组中是否含有该下标
+      // console.log(this.data.currentCheckedIndexs instanceof Array)
+      // 判断选中数组中是否含有该下标，如果没有才进行插入，否则会乱套的
       if(!this.data.currentCheckedIndexs.includes(index)){
-        console.log("aaa")
-        this.setData({
-          currentCheckedIndexs: that.data.currentCheckedIndexs.concat(index)
-        })
+        this.data.currentCheckedIndexs.push(index)
+        // this.setData({
+        //   /**
+        //    * 注意：push方法返回的是数组的长度而不是数组，而concat返回的是添加后新的数组，另外在这里没有涉及到界面的更新，所以不需要用setData方法给其赋值
+        //    */
+        //   // currentCheckedIndexs: this.data.currentCheckedIndexs.push(index),
+        //   // currentCheckedIndexs: this.data.currentCheckedIndexs.concat(index) 
+        // })
       }else {
-        for(let i = 0;i<that.data.currentCheckedIndexs.length;i++){
-          if(that.data.currentCheckedIndexs[i]==index){
-            that.data.currentCheckedIndexs.splice(i,1)
+        for(let i = 0;i < this.data.currentCheckedIndexs.length;i++){
+          if(this.data.currentCheckedIndexs[i] === index){
+            this.data.currentCheckedIndexs.splice(i,1)
           }
         }
       }
       // 向外传递一个当前选中事件
       this.triggerEvent("currentCheckedIndexs", this.data.currentCheckedIndexs)
       // console.log(this.data.currentCheckedIndexs)
+    },
+
+    hiddenColBtn() {
+      this.setData({
+        hiddenColModal: true
+      })
+    },
+    // 多选择事件
+    clickCheck(e) {
+      const prop = e.currentTarget.dataset.prop
+      this.data.isHiddenCol[prop] = !this.data.isHiddenCol[prop]
+      this.setData({
+        isHiddenCol: this.data.isHiddenCol
+      })
+      // console.log(!this.data.currentHiddenCol[prop])
+      // console.log(this.data.isHiddenCol)
+      // console.log(this.data.currentHiddenCol)
+    },
+    // 确认隐藏事件
+    confirmHidden() {
+      // console.log("-----")
+      // this.setData({
+      //   isHiddenCol: this.data.currentHiddenCol
+      // })
     }
-  }
+    
+  },
+  lifetimes: {
+    attached: function () {
+      for (let i of this.properties.colName) {
+        const prop = i.prop
+        this.data.isHiddenCol[prop] = true
+        this.data.currentHiddenCol[prop] = true
+      }
+      this.setData({
+        isHiddenCol: this.data.isHiddenCol
+      })
+      // console.log("aaaa")
+      // this.data.courrentHiddenCol = this.data.isHiddenCol
+      // console.log(this.data.currentHiddenCol)
+    }
+  },
 })

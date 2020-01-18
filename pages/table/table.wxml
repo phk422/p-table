@@ -36,12 +36,17 @@
         star: "射手座"
       }]
  -->
-  <p-table  height="200px"
-            title="人员基本信息表"
-            isShowId 
-            isShowSelection
-            fixed
-            bind:currentCheckedIndexs="currentCheckedIndexs"
-            colName="{{colName}}" 
-            tableData="{{tableData}}"
-            checkbox="checkbox"   />
+ <view>你好世界</view>
+ <view>你好世界</view>
+ <view>你好世界</view>
+ <view>你好世界</view>
+ <view>你好世界</view>
+<p-table  height="{{height}}px"
+          title="{{title}}"
+          isShowId 
+          isShowSelection
+          fixed
+          colName="{{colName}}" 
+          tableData="{{tableData}}"
+          checkbox="checkbox"   
+          bind:currentCheckedIndexs="currentCheckedIndexs"/>

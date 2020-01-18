@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    height: "500",
+    title: "人员基本信息表",
     colName: [
       { prop: 'username', label: '用户名' },
       { prop: 'gender', label: '性别' },
@@ -131,9 +133,9 @@ Page({
     ]
   },
 
-  // table组件传递来的
+  // p-table组件传递来的事件
   currentCheckedIndexs(e) {
-    console.log(e.detail)
+    console.log("当前选择中行的下标：" + e.detail)
   },
 
   /**

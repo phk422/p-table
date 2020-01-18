@@ -1,8 +1,6 @@
 <!--components/p-table/p-table.wxml-->
 <text class="title" wx:if="{{title}}"> {{"*" + title}}</text>
-<scroll-view class="container" style="height: {{height}}" scroll-y >
-  <scroll-view scroll-x  class="table" bindscroll="handelScrollLeft">
-    <view class="tr {{fixed ? 'fixed' : ''}}" style='left: {{scrollLeft}}px'  >
+<view class="tr" style='position:absolute;z-index:1;left: {{scrollLeft}}px'  >
       <!-- 复选框 -->
       <view class="th " style="width:15px;padding-left:18rpx" wx:if="{{isShowSelection}}">
         <checkbox class="checkbox" checked="{{isChecked}}" bindtap="handleSelectionChange"></checkbox>
@@ -10,17 +8,16 @@
       <!-- 序号列 -->
       <view class="th " wx:if="{{isShowId}}">序号</view>
       <block wx:for="{{colName}}" wx:key="index">
-        <view class="th">{{item.label}}</view>
+        <view class="th" wx:if="{{isHiddenCol[item.prop]}}">{{item.label}}</view>
+        <!-- <view>{{isHiddenCol}}</view> -->
       </block>
       <!-- 操作列 -->
       <view wx:if="{{isOperation}}" class="th oper">操作</view>
-      <!-- 填充列 -->
-      <!-- <view wx:if="{{fixed}}" class="th"></view> -->
-    </view>
-
+</view>
+<scroll-view class="container" style="height: {{height}}" scroll-y >
+  <scroll-view scroll-x  class="table" bindscroll="handelScrollLeft">
     <!-- 填充一行空行 -->
     <view wx:if="{{fixed}}" style="height:3em"></view>
-
     <!-- 数据 -->
     <block wx:for="{{tableData}}" wx:for-item="table" wx:for-index="i" wx:key="index">
       <view class="tr ">
@@ -31,7 +28,7 @@
           {{i + 1}} 
         </view>
         <block wx:for="{{colName}}" wx:for-item="col" wx:key="index">
-          <view class="td {{i%2 === 0? 'bg': ''}}">{{table[col.prop]}}</view>
+          <view class="td {{i%2 === 0? 'bg': ''}}" wx:if="{{isHiddenCol[col.prop]}}">{{table[col.prop]}}</view>
         </block>
         <view class="td  {{i%2 === 0? 'bg': ''}}" style="width:auto"  wx:if="{{isOperation}}">
           <button class="operation" size="mini" bindtap="handelUpdate" data-index="{{i}}">详情</button>
@@ -41,7 +38,22 @@
     </block>
   </scroll-view>
 </scroll-view>
-<button class="addBtn" type="primary" bindtap="addBtn">新增</button>
+<view class="someBtn">
+  <button class="addBtn" size="mini" type="primary" bindtap="addBtn">新增</button>
+  <button class="addBtn" size="mini" type="primary" bindtap="hiddenColBtn">列隐藏/显示</button>
+</view>
+
+
+<!--  列隐藏和显示弹窗-->
+<p-modal show="{{hiddenColModal}}" single="{{1}}" showFooter bind:confirm="confirmHidden">
+<view class="checked">
+  <block wx:for="{{colName}}" wx:key="index">
+    <checkbox key="{{index}}" checked="{{isHiddenCol[item.prop]}}" data-prop="{{item.prop}}" bindtap="clickCheck">{{item.label}}</checkbox>
+  </block>
+</view>
+  
+</p-modal>
+
 
 <!-- 删除提示modal弹窗 -->
 <p-modal show="{{deleteTipsModal}}" 
