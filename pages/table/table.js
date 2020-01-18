@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    height: "500",
+    height: "300",
     title: "人员基本信息表",
     colName: [
       { prop: 'username', label: '用户名' },
